@@ -15,6 +15,7 @@ Todo:
 - compile a template
 - describe a cloud app
 - delete a cloud app
+- launch a cloud app with arguments
 
 ## build
 
