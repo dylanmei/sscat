@@ -17,7 +17,7 @@ type upload_template struct {
 func setup_upload_template(app *kingpin.Application) {
 	task := &upload_template{}
 	cmd := app.Command("upload-template", "Upload RightScale CAT template file").Action(task.run)
-	cmd.Flag("template-name", "CAT template file name").Required().StringVar(&task.TemplateName)
+	cmd.Flag("template-name", "CAT template name").Required().PlaceHolder("NAME").StringVar(&task.TemplateName)
 	cmd.Arg("template-file", "CAT template file path").Required().ExistingFileVar(&task.FilePath)
 }
 
