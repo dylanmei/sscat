@@ -17,5 +17,6 @@ var (
 func main() {
 	setup_upload_template(app)
 	setup_delete_template(app)
+	setup_launch_app(app)
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 }

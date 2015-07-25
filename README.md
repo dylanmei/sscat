@@ -7,11 +7,13 @@ Supports:
 
 - upload a template
 - delete a template
+- launch a cloud app
 
 Todo:
 
 - describe a template
-- launch a cloud app
+- compile a template
+- describe a cloud app
 - delete a cloud app
 
 ## build

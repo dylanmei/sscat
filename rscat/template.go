@@ -17,13 +17,13 @@ func TemplateByName(name string) TemplateFinder {
 }
 
 func (c *Client) DeleteTemplate(id string) error {
-	locator := c.ssd.TemplateLocator(fmt.Sprintf(
+	locator := c.designer.TemplateLocator(fmt.Sprintf(
 		"/designer/collections/%d/templates/%s", c.account, id))
 	return locator.Delete()
 }
 
 func (c *Client) FindTemplate(finder TemplateFinder) (*ssd.Template, error) {
-	locator := c.ssd.TemplateLocator(fmt.Sprintf(
+	locator := c.designer.TemplateLocator(fmt.Sprintf(
 		"/designer/collections/%d/templates", c.account))
 
 	templates, err := locator.Index(rsapi.ApiParams{})
@@ -41,7 +41,7 @@ func (c *Client) FindTemplate(finder TemplateFinder) (*ssd.Template, error) {
 }
 
 func (c *Client) UploadTemplate(name string, file io.Reader) (*ssd.Template, error) {
-	collection := c.ssd.TemplateLocator(fmt.Sprintf(
+	collection := c.designer.TemplateLocator(fmt.Sprintf(
 		"/designer/collections/%d/templates", c.account))
 
 	upload := rsapi.FileUpload{Name: "source", Filename: name, Reader: file}
@@ -50,10 +50,5 @@ func (c *Client) UploadTemplate(name string, file io.Reader) (*ssd.Template, err
 		return nil, err
 	}
 
-	template, err := item.Show(rsapi.ApiParams{})
-	if err != nil {
-		return nil, err
-	}
-
-	return template, nil
+	return item.Show(rsapi.ApiParams{})
 }
