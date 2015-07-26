@@ -13,7 +13,7 @@ type delete_template struct {
 
 func setup_delete_template(app *kingpin.Application) {
 	task := &delete_template{}
-	cmd := app.Command("delete-template", "Delete RightScale CAT template").Action(task.run)
+	cmd := app.Command("delete-template", "Delete CAT template").Action(task.run)
 	cmd.Flag("template-name", "CAT template name").Required().PlaceHolder("NAME").StringVar(&task.TemplateName)
 }
 

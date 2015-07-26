@@ -17,7 +17,7 @@ type launch_app struct {
 
 func setup_launch_app(app *kingpin.Application) {
 	task := &launch_app{}
-	cmd := app.Command("launch-app", "Launch a RightScale CloudApp").Action(task.run)
+	cmd := app.Command("launch-app", "Launch a CloudApp").Action(task.run)
 	cmd.Flag("app-name", "CloudApp name").Required().PlaceHolder("NAME").StringVar(&task.AppName)
 	cmd.Flag("app-description", "CloudApp description").PlaceHolder("DESC").StringVar(&task.AppDescription)
 	cmd.Flag("template-name", "CAT template name").Required().PlaceHolder("NAME").StringVar(&task.TemplateName)

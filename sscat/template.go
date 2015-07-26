@@ -3,6 +3,7 @@ package sscat
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 
 	"github.com/rightscale/rsc/rsapi"
 	"github.com/rightscale/rsc/ss/ssd"
@@ -38,6 +39,18 @@ func (c *Client) FindTemplate(finder TemplateFinder) (*ssd.Template, error) {
 	}
 
 	return nil, nil
+}
+
+func (c *Client) CompileTemplate(file io.Reader) error {
+	locator := c.designer.TemplateLocator(fmt.Sprintf(
+		"/designer/collections/%d/templates", c.account))
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		return err
+	}
+
+	return locator.Compile(string(bytes))
 }
 
 func (c *Client) UploadTemplate(name string, file io.Reader) (*ssd.Template, error) {

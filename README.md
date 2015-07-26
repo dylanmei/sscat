@@ -5,6 +5,7 @@ Author [RightScale Self Service](http://docs.rightscale.com/ss/getting_started) 
 
 Supports:
 
+- compile a template
 - upload a template
 - delete a template
 - launch a cloud app
@@ -12,7 +13,6 @@ Supports:
 TODO:
 
 - describe a template
-- compile a template
 - describe a cloud app
 - delete a cloud app
 - launch a cloud app with arguments
