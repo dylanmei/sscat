@@ -1,7 +1,7 @@
-rscat
+sscat
 -----
 
-Author RightScale CAT files with less clicking
+Author [RightScale Self Service](http://docs.rightscale.com/ss/getting_started) CAT files with less clicking
 
 Supports:
 
@@ -9,7 +9,7 @@ Supports:
 - delete a template
 - launch a cloud app
 
-Todo:
+TODO:
 
 - describe a template
 - compile a template
@@ -26,7 +26,7 @@ make
 ## run
 
 ```
-bin/rscat --help
+bin/sscat --help
 ```
 
 ## configure

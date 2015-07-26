@@ -5,7 +5,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/dylanmei/rscat/rscat"
+	"github.com/dylanmei/sscat/sscat"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -28,13 +28,13 @@ func (cmd *upload_template) run(pc *kingpin.ParseContext) error {
 	}
 	defer file.Close()
 
-	client, err := rscat.NewClient(*apiHost, *ssHost, *account, *apiToken)
+	client, err := sscat.NewClient(*apiHost, *ssHost, *account, *apiToken)
 	if err != nil {
 		return fmt.Errorf("oops! couldn't create api client, account=%d: %v", *account, err)
 	}
 
 	fmt.Printf("looking for remote %s template...\n", cmd.TemplateName)
-	if t, _ := client.FindTemplate(rscat.TemplateByName(cmd.TemplateName)); t != nil {
+	if t, _ := client.FindTemplate(sscat.TemplateByName(cmd.TemplateName)); t != nil {
 		fmt.Printf("deleting remote %s template...\n", cmd.TemplateName)
 		if err := client.DeleteTemplate(t.Id); err != nil {
 			return fmt.Errorf("oops! couldn't delete %s template: %v", cmd.TemplateName, err)

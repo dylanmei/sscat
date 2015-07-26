@@ -1,4 +1,4 @@
-package rscat
+package sscat
 
 import (
 	"fmt"

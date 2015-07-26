@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	app      = kingpin.New("rscat", "Author RightScale CAT files with less clicking")
+	app      = kingpin.New("sscat", "Author RightScale Self Service CAT files with less clicking")
 	apiHost  = app.Flag("api-host", "RightScale API host name").Required().PlaceHolder("HOST").OverrideDefaultFromEnvar("RS_API_HOST").String()
 	apiToken = app.Flag("api-token", "RightScale OAuth refresh token").Required().PlaceHolder("TOKEN").OverrideDefaultFromEnvar("RS_API_TOKEN").String()
 	ssHost   = app.Flag("ss-host", "RightScale SelfService host name").Required().PlaceHolder("HOST").OverrideDefaultFromEnvar("RS_SS_HOST").String()
