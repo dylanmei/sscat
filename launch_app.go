@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/dylanmei/sscat/sscat"
+	"github.com/taion809/haikunator"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -12,6 +13,7 @@ type launch_app struct {
 	AppName        string
 	AppDescription string
 	TemplateName   string
+	Haikunate      bool
 	Timeout        time.Duration
 }
 
@@ -20,6 +22,7 @@ func setup_launch_app(app *kingpin.Application) {
 	cmd := app.Command("launch-app", "Launch a CloudApp").Action(task.run)
 	cmd.Flag("app-name", "CloudApp name").Required().PlaceHolder("NAME").StringVar(&task.AppName)
 	cmd.Flag("app-description", "CloudApp description").PlaceHolder("DESC").StringVar(&task.AppDescription)
+	cmd.Flag("haikunate-name", "Append Heroku-like description to CloudApp name").BoolVar(&task.Haikunate)
 	cmd.Flag("template-name", "CAT template name").Required().PlaceHolder("NAME").StringVar(&task.TemplateName)
 	cmd.Flag("timeout", "Max time to wait").Default("10m").DurationVar(&task.Timeout)
 }
@@ -40,8 +43,13 @@ func (cmd *launch_app) run(pc *kingpin.ParseContext) error {
 		return fmt.Errorf("oops! %s template couldn't be found.", err)
 	}
 
-	fmt.Printf("launching %s app, timeout=%v...\n", cmd.AppName, cmd.Timeout)
-	execution, err := client.StartExecution(cmd.AppName, cmd.AppDescription, template.Href)
+	appName := cmd.AppName
+	if cmd.Haikunate {
+		appName = haikunate(appName)
+	}
+
+	fmt.Printf("launching %s app, timeout=%v...\n", appName, cmd.Timeout)
+	execution, err := client.StartExecution(appName, cmd.AppDescription, template.Href)
 	if err != nil {
 		return fmt.Errorf("oops! trouble starting launch: %v", err)
 	}
@@ -56,7 +64,7 @@ func (cmd *launch_app) run(pc *kingpin.ParseContext) error {
 			}
 			switch execution.Status {
 			case "running":
-				fmt.Printf("%s app is running.\n", cmd.AppName)
+				fmt.Printf("%s app is running.\n", appName)
 				return nil
 			case "launching", "starting", "enabling", "waiting_for_operations":
 				fmt.Printf("waiting for launch, status=%s...\n", execution.Status)
@@ -70,4 +78,9 @@ func (cmd *launch_app) run(pc *kingpin.ParseContext) error {
 	}
 
 	return nil
+}
+
+func haikunate(name string) string {
+	h := haikunator.NewHaikunator()
+	return fmt.Sprintf("%s (%s)", name, h.TokenDelimHaikunate(0, " "))
 }
