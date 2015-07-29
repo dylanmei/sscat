@@ -41,8 +41,9 @@ func (cmd *upload_template) run(pc *kingpin.ParseContext) error {
 		}
 	}
 
-	fmt.Printf("uploading %s template %s...\n", cmd.TemplateName, path.Base(cmd.TemplatePath))
-	t, err := client.UploadTemplate(cmd.TemplateName, file)
+	fileName := path.Base(cmd.TemplatePath)
+	fmt.Printf("uploading %s template %s...\n", cmd.TemplateName, fileName)
+	t, err := client.UploadTemplate(cmd.TemplateName, fileName, file)
 	if err != nil {
 		return fmt.Errorf("oops! couldn't upload %s template: %v", cmd.TemplateName, err)
 	}

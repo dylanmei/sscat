@@ -53,11 +53,11 @@ func (c *Client) CompileTemplate(file io.Reader) error {
 	return locator.Compile(string(bytes))
 }
 
-func (c *Client) UploadTemplate(name string, file io.Reader) (*ssd.Template, error) {
+func (c *Client) UploadTemplate(name, fileName string, file io.Reader) (*ssd.Template, error) {
 	collection := c.designer.TemplateLocator(fmt.Sprintf(
 		"/designer/collections/%d/templates", c.account))
 
-	upload := rsapi.FileUpload{Name: "source", Filename: name, Reader: file}
+	upload := rsapi.FileUpload{Name: "source", Filename: fileName, Reader: file}
 	item, err := collection.Create(&upload)
 	if err != nil {
 		return nil, err
