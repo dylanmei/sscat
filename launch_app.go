@@ -54,6 +54,7 @@ func (cmd *launch_app) run(pc *kingpin.ParseContext) error {
 		return fmt.Errorf("oops! trouble starting launch: %v", err)
 	}
 
+	fmt.Printf("started execution, href=%s\n", execution.Href)
 	fmt.Println("waiting for launch status...")
 	for {
 		select {
